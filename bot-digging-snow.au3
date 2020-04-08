@@ -6,43 +6,79 @@ Global $invSecond[42][2]
 $title = "Minecraft* 1.15.2 - Multiplayer (3rd-party)"
 AutoItSetOption("MouseCoordMode", 2) ; client mode
 
-HotKeySet("{END}","close")
+HotKeySet("{END}","Pause")
+HotKeySet("{DELETE}","close")
 HotKeySet("{HOME}","start")
-
+HotKeySet("{PGUP}","craftSnowBlock")
+HotKeySet("{INSERT}","craftSnowBlock")
+HotKeySet("{PGDN}","sellSnowBlock")
+HotKeySet("{NUMPAD0}","preset1")
 While 1
 	Sleep(100)
 WEnd
 
+Func Pause()
+	Sleep(1000)
+EndFunc
+
 Func start()
 	SetUpWindow()
 	SetUpSecondInvPos()
-	;digSnow()
+EndFunc
+
+Func preset1()
+	digSnow()
+	Opt("SendKeyDownDelay",2000)
+	Send("S")
+	Opt("SendKeyDownDelay",0)
 	craftSnowBlock()
+	sellSnowBlock()
 EndFunc
 
 Func digSnow()
+	; with 3 stone shovel
+	setMainInv(7)
+	dig()
+	Sleep(20500)
 	setMainInv(8)
 	dig()
-	Sleep(8000)
+	Sleep(20500)
+	setMainInv(9)
+	dig()
+	Sleep(20500)
 	MouseUp($MOUSE_CLICK_LEFT)
 EndFunc
 
+Func sellSnowBlock()
+	Sleep(1000)
+	Send("T")
+	Sleep(1500)
+	Send("/shop")
+	Send("{ENTER}")
+	MouseClick("LEFT",540, 289)
+	MouseClick("LEFT",686, 362)
+	MouseClick("RIGHT",508, 250,150)
+	Send("ESC")
+EndFunc
+
 Func craftSnowBlock()
+	Sleep(1000)
 	Send("E")
 	$pos = 1
-	For $i = 0 to 7
-		MouseClick("LEFT",$invSecond[$pos][0],$invSecond[$pos][1])
-		MouseClick("LEFT",$invSecond[37][0],$invSecond[37][1])
-		MouseClick("LEFT",$invSecond[$pos+1][0],$invSecond[$pos+1][1])
-		MouseClick("LEFT",$invSecond[38][0],$invSecond[38][1])
-		MouseClick("LEFT",$invSecond[$pos+2][0],$invSecond[$pos+2][1])
-		MouseClick("LEFT",$invSecond[39][0],$invSecond[39][1])
-		MouseClick("LEFT",$invSecond[$pos+3][0],$invSecond[$pos+3][1])
-		MouseClick("LEFT",$invSecond[40][0],$invSecond[40][1])
+	For $i = 0 to 8
+		MouseClick("LEFT",$invSecond[$pos][0],$invSecond[$pos][1],1,5)
+		MouseClick("LEFT",$invSecond[37][0],$invSecond[37][1],1,5)
+		MouseClick("LEFT",$invSecond[$pos+1][0],$invSecond[$pos+1][1],1,5)
+		MouseClick("LEFT",$invSecond[38][0],$invSecond[38][1],1,5)
+		MouseClick("LEFT",$invSecond[$pos+2][0],$invSecond[$pos+2][1],1,5)
+		MouseClick("LEFT",$invSecond[39][0],$invSecond[39][1],1,5)
+		MouseClick("LEFT",$invSecond[$pos+3][0],$invSecond[$pos+3][1],1,5)
+		MouseClick("LEFT",$invSecond[40][0],$invSecond[40][1],1,5)
 		MouseClick("LEFT",$invSecond[41][0],$invSecond[41][1],60,5)
-		MouseClick("LEFT",$invSecond[$pos+3][0],$invSecond[$pos+3][1])
+		MouseClick("LEFT",$invSecond[$pos+3][0],$invSecond[$pos+3][1],1,5)
 		$pos += 4
 	Next
+	Send("ESC")
 EndFunc
 
 Func setMainInv($pos)
