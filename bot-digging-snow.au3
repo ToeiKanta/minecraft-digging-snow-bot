@@ -25,11 +25,10 @@ WEnd
 
 Func Pause()
 	$stop = true
-	Sleep(1000)
-	$stop = false
 EndFunc
 
 Func start()
+	$stop = False
 	SetUpWindow()
 	SetUpSecondInvPos()
 	SetUpSmallChestInv()
@@ -43,96 +42,101 @@ Func SetUpSmallChestInv()
 EndFunc
 
 Func preset1()
-	;digSnow()
-	Opt("SendKeyDownDelay",4000)
-	Send("S")
-	Opt("SendKeyDownDelay",0)
-	;craftSnowBlock()
-	;sellSnowBlock()
+	While $stop == False
+		digSnow()
+		Opt("SendKeyDownDelay",4000)
+		Send("S")
+		Opt("SendKeyDownDelay",5)
+		craftSnowBlock()
+		sellSnowBlock()
 		;on small chest
-	Sleep(1000)
-	MouseClick($MOUSE_CLICK_RIGHT)
-	Sleep(2000)
-	MouseClick($MOUSE_CLICK_LEFT,$smallChest[1][0],$smallChest[1][1],1,5)
-	MouseClick($MOUSE_CLICK_RIGHT,$invSecond[28][0],$invSecond[28][1],6,20) ; stick
-	MouseClick($MOUSE_CLICK_LEFT,$smallChest[1][0],$smallChest[1][1],1,5)
-	MouseClick($MOUSE_CLICK_LEFT,$smallChest[2][0],$smallChest[2][1],1,5)
-	MouseClick($MOUSE_CLICK_RIGHT,$invSecond[29][0],$invSecond[29][1],3,20) ; stone
-	MouseClick($MOUSE_CLICK_LEFT,$smallChest[2][0],$smallChest[2][1],1,5)
-	Send("E")
-	;go to crafting table
-	Opt("SendKeyDownDelay",1000)
-	Send("A")
-	Opt("SendKeyDownDelay",0)
-	Sleep(1000)
-	MouseClick($MOUSE_CLICK_RIGHT)
-	Sleep(2000)
-	;craft shovel
-	MouseClick($MOUSE_CLICK_LEFT,$invSecond[28][0],$invSecond[28][1])
-	MouseClick($MOUSE_CLICK_RIGHT,585, 339, 3)
-	MouseClick($MOUSE_CLICK_RIGHT,585, 304, 3)
-	MouseClick($MOUSE_CLICK_LEFT,$invSecond[29][0],$invSecond[29][1])
-	MouseClick($MOUSE_CLICK_RIGHT,584, 269, 3)
-	MouseClick($MOUSE_CLICK_LEFT,736, 305)
-	MouseClick($MOUSE_CLICK_RIGHT,$invSecond[34][0],$invSecond[34][1])
-	MouseClick($MOUSE_CLICK_LEFT,736, 305)
-	MouseClick($MOUSE_CLICK_RIGHT,$invSecond[35][0],$invSecond[35][1])
-	MouseClick($MOUSE_CLICK_LEFT,736, 305)
-	MouseClick($MOUSE_CLICK_RIGHT,$invSecond[36][0],$invSecond[36][1])
-	Send("E")
-	; move back to digging
-	Opt("SendKeyDownDelay",2000)
-	Send("S")
-	Send("D")
-	Opt("SendKeyDownDelay",5000)
-	Send("W")
-	Opt("SendKeyDownDelay",0)
+		Sleep(1000)
+		MouseClick($MOUSE_CLICK_RIGHT)
+		Sleep(2000)
+		MouseClick($MOUSE_CLICK_LEFT,$smallChest[1][0],$smallChest[1][1],1,1)
+		MouseClick($MOUSE_CLICK_RIGHT,$invSecond[28][0],$invSecond[28][1],6,20) ; stick
+		MouseClick($MOUSE_CLICK_LEFT,$smallChest[1][0],$smallChest[1][1],1,1)
+		MouseClick($MOUSE_CLICK_LEFT,$smallChest[2][0],$smallChest[2][1],1,1)
+		MouseClick($MOUSE_CLICK_RIGHT,$invSecond[29][0],$invSecond[29][1],3,20) ; stone
+		MouseClick($MOUSE_CLICK_LEFT,$smallChest[2][0],$smallChest[2][1],1,1)
+		Send("E")
+		;go to crafting table
+		Opt("SendKeyDownDelay",1000)
+		Send("A")
+		Opt("SendKeyDownDelay",5)
+		Sleep(1000)
+		MouseClick($MOUSE_CLICK_RIGHT)
+		Sleep(2000)
+		;craft shovel
+		MouseClick($MOUSE_CLICK_LEFT,$invSecond[28][0],$invSecond[28][1],1,1)
+		MouseClick($MOUSE_CLICK_RIGHT,585, 339, 3,1)
+		MouseClick($MOUSE_CLICK_RIGHT,585, 304, 3,1)
+		MouseClick($MOUSE_CLICK_LEFT,$invSecond[29][0],$invSecond[29][1],1,1)
+		MouseClick($MOUSE_CLICK_RIGHT,584, 269, 3,1)
+		MouseClick($MOUSE_CLICK_LEFT,736, 305,1,1)
+		MouseClick($MOUSE_CLICK_RIGHT,$invSecond[34][0],$invSecond[34][1],1,1)
+		MouseClick($MOUSE_CLICK_LEFT,736, 305,1,1)
+		MouseClick($MOUSE_CLICK_RIGHT,$invSecond[35][0],$invSecond[35][1],1,1)
+		MouseClick($MOUSE_CLICK_LEFT,736, 305,1,1)
+		MouseClick($MOUSE_CLICK_RIGHT,$invSecond[36][0],$invSecond[36][1],1,1)
+		Send("E")
+		; move back to digging
+		Opt("SendKeyDownDelay",2000)
+		Send("S")
+		Send("D")
+		Opt("SendKeyDownDelay",5000)
+		Send("W")
+		Opt("SendKeyDownDelay",5)
+	WEnd
 EndFunc
 
 Func digSnow()
 	; with 3 stone shovel
 	setMainInv(7)
 	dig()
-	Sleep(20500)
+	Sleep(24000)
 	setMainInv(8)
 	dig()
-	Sleep(20500)
+	Sleep(24000)
 	setMainInv(9)
 	dig()
-	Sleep(20500)
+	Sleep(27000)
 	MouseUp($MOUSE_CLICK_LEFT)
 EndFunc
 
 Func sellSnowBlock()
 	Sleep(1000)
 	Send("T")
-	Sleep(1500)
+	Sleep(3000)
 	Send("/shop")
 	Send("{ENTER}")
+	Sleep(3000)
 	MouseClick("LEFT",540, 289)
 	MouseClick("LEFT",686, 362)
-	MouseClick("RIGHT",508, 250,150)
+	MouseClick("RIGHT",508, 250,200,20)
 	Send("ESC")
+	Sleep(1000)
 EndFunc
 
 Func craftSnowBlock()
 	Sleep(1000)
 	Send("E")
+	Sleep(2000)
 	$pos = 1
 	For $i = 0 to 8
 		if $stop == True Then
 			Break
 		EndIf
-		MouseClick("LEFT",$invSecond[$pos][0],$invSecond[$pos][1],1,5)
-		MouseClick("LEFT",$invSecond[37][0],$invSecond[37][1],1,5)
-		MouseClick("LEFT",$invSecond[$pos+1][0],$invSecond[$pos+1][1],1,5)
-		MouseClick("LEFT",$invSecond[38][0],$invSecond[38][1],1,5)
-		MouseClick("LEFT",$invSecond[$pos+2][0],$invSecond[$pos+2][1],1,5)
-		MouseClick("LEFT",$invSecond[39][0],$invSecond[39][1],1,5)
-		MouseClick("LEFT",$invSecond[$pos+3][0],$invSecond[$pos+3][1],1,5)
-		MouseClick("LEFT",$invSecond[40][0],$invSecond[40][1],1,5)
-		MouseClick("LEFT",$invSecond[41][0],$invSecond[41][1],60,5)
-		MouseClick("LEFT",$invSecond[$pos+3][0],$invSecond[$pos+3][1],1,5)
+		MouseClick("LEFT",$invSecond[$pos][0],$invSecond[$pos][1],1,1)
+		MouseClick("LEFT",$invSecond[37][0],$invSecond[37][1],1,1)
+		MouseClick("LEFT",$invSecond[$pos+1][0],$invSecond[$pos+1][1],1,1)
+		MouseClick("LEFT",$invSecond[38][0],$invSecond[38][1],1,1)
+		MouseClick("LEFT",$invSecond[$pos+2][0],$invSecond[$pos+2][1],1,1)
+		MouseClick("LEFT",$invSecond[39][0],$invSecond[39][1],1,1)
+		MouseClick("LEFT",$invSecond[$pos+3][0],$invSecond[$pos+3][1],1,1)
+		MouseClick("LEFT",$invSecond[40][0],$invSecond[40][1],1,1)
+		MouseClick("LEFT",$invSecond[41][0],$invSecond[41][1],60,1)
+		MouseClick("LEFT",$invSecond[$pos+3][0],$invSecond[$pos+3][1],1,1)
 		$pos += 4
 	Next
 	Send("ESC")
@@ -218,6 +222,5 @@ Func dig()
 EndFunc
 
 Func close()
-	MouseUp($MOUSE_CLICK_LEFT)
 	Exit
 EndFunc
