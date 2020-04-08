@@ -3,6 +3,8 @@
 #include <Array.au3>
 Global $invSecond[42][2]
 Global $stop = False
+Global $smallChest[64][2]
+
 ; Double click at the current mouse position.
 $title = "Minecraft* 1.15.2 - Multiplayer (3rd-party)"
 AutoItSetOption("MouseCoordMode", 2) ; client mode
@@ -14,6 +16,9 @@ HotKeySet("{PGUP}","craftSnowBlock")
 HotKeySet("{INSERT}","craftSnowBlock")
 HotKeySet("{PGDN}","sellSnowBlock")
 HotKeySet("{NUMPAD0}","preset1")
+
+start()
+
 While 1
 	Sleep(100)
 WEnd
@@ -27,15 +32,61 @@ EndFunc
 Func start()
 	SetUpWindow()
 	SetUpSecondInvPos()
+	SetUpSmallChestInv()
+EndFunc
+
+Func SetUpSmallChestInv()
+	$smallChest[1][0] = 508
+	$smallChest[1][1] = 270
+	$smallChest[2][0] = 543
+	$smallChest[2][1] = 269
 EndFunc
 
 Func preset1()
-	digSnow()
-	Opt("SendKeyDownDelay",2000)
+	;digSnow()
+	Opt("SendKeyDownDelay",4000)
 	Send("S")
 	Opt("SendKeyDownDelay",0)
-	craftSnowBlock()
-	sellSnowBlock()
+	;craftSnowBlock()
+	;sellSnowBlock()
+		;on small chest
+	Sleep(1000)
+	MouseClick($MOUSE_CLICK_RIGHT)
+	Sleep(2000)
+	MouseClick($MOUSE_CLICK_LEFT,$smallChest[1][0],$smallChest[1][1],1,5)
+	MouseClick($MOUSE_CLICK_RIGHT,$invSecond[28][0],$invSecond[28][1],6,20) ; stick
+	MouseClick($MOUSE_CLICK_LEFT,$smallChest[1][0],$smallChest[1][1],1,5)
+	MouseClick($MOUSE_CLICK_LEFT,$smallChest[2][0],$smallChest[2][1],1,5)
+	MouseClick($MOUSE_CLICK_RIGHT,$invSecond[29][0],$invSecond[29][1],3,20) ; stone
+	MouseClick($MOUSE_CLICK_LEFT,$smallChest[2][0],$smallChest[2][1],1,5)
+	Send("E")
+	;go to crafting table
+	Opt("SendKeyDownDelay",1000)
+	Send("A")
+	Opt("SendKeyDownDelay",0)
+	Sleep(1000)
+	MouseClick($MOUSE_CLICK_RIGHT)
+	Sleep(2000)
+	;craft shovel
+	MouseClick($MOUSE_CLICK_LEFT,$invSecond[28][0],$invSecond[28][1])
+	MouseClick($MOUSE_CLICK_RIGHT,585, 339, 3)
+	MouseClick($MOUSE_CLICK_RIGHT,585, 304, 3)
+	MouseClick($MOUSE_CLICK_LEFT,$invSecond[29][0],$invSecond[29][1])
+	MouseClick($MOUSE_CLICK_RIGHT,584, 269, 3)
+	MouseClick($MOUSE_CLICK_LEFT,736, 305)
+	MouseClick($MOUSE_CLICK_RIGHT,$invSecond[34][0],$invSecond[34][1])
+	MouseClick($MOUSE_CLICK_LEFT,736, 305)
+	MouseClick($MOUSE_CLICK_RIGHT,$invSecond[35][0],$invSecond[35][1])
+	MouseClick($MOUSE_CLICK_LEFT,736, 305)
+	MouseClick($MOUSE_CLICK_RIGHT,$invSecond[36][0],$invSecond[36][1])
+	Send("E")
+	; move back to digging
+	Opt("SendKeyDownDelay",2000)
+	Send("S")
+	Send("D")
+	Opt("SendKeyDownDelay",5000)
+	Send("W")
+	Opt("SendKeyDownDelay",0)
 EndFunc
 
 Func digSnow()
