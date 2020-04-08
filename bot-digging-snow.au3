@@ -1,5 +1,6 @@
 #include <AutoItConstants.au3>
 #include <Misc.au3>
+#include <MsgBoxConstants.au3>
 #include <Array.au3>
 Global $invSecond[42][2]
 Global $stop = False
@@ -8,6 +9,7 @@ Global $smallChest[64][2]
 ; Double click at the current mouse position.
 $title = "Minecraft* 1.15.2 - Multiplayer (3rd-party)"
 AutoItSetOption("MouseCoordMode", 2) ; client mode
+Opt("PixelCoordMode", 2)
 
 HotKeySet("{END}","Pause")
 HotKeySet("{DELETE}","close")
@@ -94,25 +96,32 @@ Func digSnow()
 	; with 3 stone shovel
 	setMainInv(7)
 	dig()
-	Sleep(24000)
+	While Hex(PixelGetColor(741, 740),6) == "7D7D7D"
+		;MsgBox($MB_SYSTEMMODAL, "", "The decimal color is: " & Hex(PixelGetColor(741, 740),6) & " && 0x7D7D7D")
+		Sleep(100)
+	WEnd
 	setMainInv(8)
 	dig()
-	Sleep(24000)
+	While Hex(PixelGetColor(781, 740),6) == "7D7D7D" 
+		Sleep(100)
+	WEnd
 	setMainInv(9)
 	dig()
-	Sleep(27000)
-	MouseUp($MOUSE_CLICK_LEFT)
+	While Hex(PixelGetColor(820, 740),6) == "7D7D7D" 
+		Sleep(100)
+	WEnd
+	MouseClick($MOUSE_CLICK_LEFT)
 EndFunc
 
 Func sellSnowBlock()
 	Sleep(1000)
 	Send("T")
-	Sleep(3000)
+	Sleep(200)
 	Send("/shop")
 	Send("{ENTER}")
 	Sleep(3000)
-	MouseClick("LEFT",540, 289)
-	MouseClick("LEFT",686, 362)
+	MouseClick("LEFT",540, 289,1,30)
+	MouseClick("LEFT",686, 362,1,30)
 	MouseClick("RIGHT",508, 250,200,20)
 	Send("ESC")
 	Sleep(1000)
@@ -222,5 +231,6 @@ Func dig()
 EndFunc
 
 Func close()
+	MsgBox($MB_SYSTEMMODAL, "", "Close Program success")
 	Exit
 EndFunc
