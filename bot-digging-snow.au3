@@ -16,6 +16,9 @@ WEnd
 Func start()
 	setUpWindow()
 	SetUpSecondInvPos()
+EndFunc
+
+Func CheckingInvPos()
 	Send("E")
 	For $i = 1 to 41
 		clickSecoundInv($i)
