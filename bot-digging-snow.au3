@@ -16,7 +16,33 @@ WEnd
 Func start()
 	SetUpWindow()
 	SetUpSecondInvPos()
-	setMainInv(9)
+	;digSnow()
+	craftSnowBlock()
+EndFunc
+
+Func digSnow()
+	setMainInv(8)
+	dig()
+	Sleep(8000)
+	MouseUp($MOUSE_CLICK_LEFT)
+EndFunc
+
+Func craftSnowBlock()
+	Send("E")
+	$pos = 1
+	For $i = 0 to 7
+		MouseClick("LEFT",$invSecond[$pos][0],$invSecond[$pos][1])
+		MouseClick("LEFT",$invSecond[37][0],$invSecond[37][1])
+		MouseClick("LEFT",$invSecond[$pos+1][0],$invSecond[$pos+1][1])
+		MouseClick("LEFT",$invSecond[38][0],$invSecond[38][1])
+		MouseClick("LEFT",$invSecond[$pos+2][0],$invSecond[$pos+2][1])
+		MouseClick("LEFT",$invSecond[39][0],$invSecond[39][1])
+		MouseClick("LEFT",$invSecond[$pos+3][0],$invSecond[$pos+3][1])
+		MouseClick("LEFT",$invSecond[40][0],$invSecond[40][1])
+		MouseClick("LEFT",$invSecond[41][0],$invSecond[41][1],60,5)
+		MouseClick("LEFT",$invSecond[$pos+3][0],$invSecond[$pos+3][1])
+		$pos += 4
+	Next
 EndFunc
 
 Func setMainInv($pos)
