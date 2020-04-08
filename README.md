@@ -1,0 +1,1 @@
+# minecraft-digging-snow-bot
