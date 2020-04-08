@@ -14,8 +14,32 @@ While 1
 WEnd
 
 Func start()
-	setUpWindow()
+	SetUpWindow()
 	SetUpSecondInvPos()
+	setMainInv(9)
+EndFunc
+
+Func setMainInv($pos)
+	Sleep(1000)
+	If $pos == 1 Then
+		Send("1")
+	ElseIf $pos == 2 Then
+		Send("2")
+	ElseIf $pos == 3 Then
+		Send("3")
+	ElseIf $pos == 4 Then
+		Send("4")
+	ElseIf $pos == 5 Then
+		Send("5")
+	ElseIf $pos == 6 Then
+		Send("6")
+	ElseIf $pos == 7 Then
+		Send("7")
+	ElseIf $pos == 8 Then
+		Send("8")
+	ElseIf $pos == 9 Then
+		Send("9")
+	EndIf
 EndFunc
 
 Func CheckingInvPos()
@@ -63,13 +87,13 @@ Func clickSecoundInv($inv)
 	MouseClick("LEFT", $invSecond[$inv][0], $invSecond[$inv][1])
 EndFunc
 
-Func setUpWindow()
+Func SetUpWindow()
 	WinActivate($title)
 	WinMove ( $title, "", 290, 170 , 1315, 810 , 3 )
 	Send("{ESC}")
 EndFunc   ;==>Example
 
-Func mining()
+Func dig()
 	Sleep(100)
 	MouseDown($MOUSE_CLICK_LEFT)
 EndFunc
