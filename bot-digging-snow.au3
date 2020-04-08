@@ -2,6 +2,7 @@
 #include <Misc.au3>
 #include <Array.au3>
 Global $invSecond[42][2]
+Global $stop = False
 ; Double click at the current mouse position.
 $title = "Minecraft* 1.15.2 - Multiplayer (3rd-party)"
 AutoItSetOption("MouseCoordMode", 2) ; client mode
@@ -18,7 +19,9 @@ While 1
 WEnd
 
 Func Pause()
+	$stop = true
 	Sleep(1000)
+	$stop = false
 EndFunc
 
 Func start()
@@ -66,6 +69,9 @@ Func craftSnowBlock()
 	Send("E")
 	$pos = 1
 	For $i = 0 to 8
+		if $stop == True Then
+			Break
+		EndIf
 		MouseClick("LEFT",$invSecond[$pos][0],$invSecond[$pos][1],1,5)
 		MouseClick("LEFT",$invSecond[37][0],$invSecond[37][1],1,5)
 		MouseClick("LEFT",$invSecond[$pos+1][0],$invSecond[$pos+1][1],1,5)
